@@ -39,13 +39,11 @@ class AccessToken
     public function getAccessToken($corpid='',$secret='')
     {
         $data = cache('wx_access_token');
-        dump($data['expire_time']);
         if( $data['expire_time'] < time() )
         {
             echo '1';
             $url = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=$this->corpId&corpsecret=$this->secret";
             $access_token = json_decode(http_get($url)["content"]);
-            $token = $access_token->access_token;
             if($access_token)
             {
                 $data['access_token'] = $access_token;
@@ -56,8 +54,8 @@ class AccessToken
         {
             echo '2';
             $data  = cache('wx_access_token');
-            $token = $data['access_token'];
+            $access_token = $data['access_token'];
         }
-        return $token;
+        return $access_token;
     }
 }
