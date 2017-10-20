@@ -14,11 +14,11 @@ function http_get($url){
     curl_setopt($oCurl, CURLOPT_URL, $url);
     curl_setopt($oCurl, CURLOPT_RETURNTRANSFER, 1 );
     curl_setopt($oCurl, CURLOPT_VERBOSE, 1);
-    curl_setopt($oCurl, CURLOPT_HEADER, 1);
+    //curl_setopt($oCurl, CURLOPT_HEADER, 1);
 
-    // $sContent = curl_exec($oCurl);
+    $sContent = curl_exec($oCurl);
     // $aStatus = curl_getinfo($oCurl);
-    $sContent = execCURL($oCurl);
+    //$sContent = execCURL($oCurl);
     curl_close($oCurl);
 
     return $sContent;
@@ -156,8 +156,13 @@ function getConfigByAgentId($id){
     return $config;
 }
 
-//数组转换为对象（传入非数组原样返回）
-function arrayToObject($arr){
+/**
+ * 数组转换为对象（传入非数组原样返回）
+ * @param [array] $arr 要转换为对象的数组
+ * @return [object/array] 传入数组时返回对象，否则原样返回
+ * @author 似水流年
+ */
+function array_to_object($arr){
     if(is_array($arr)){
         $object = new StdClass();
         foreach($arr as $key => $value){
@@ -169,3 +174,20 @@ function arrayToObject($arr){
     return $object;
 }
 
+/**
+ * 获取access_token助手函数
+ * @param [string] $style 参数值两种：1、json;2、string
+ * @return 参数为json时返回json格式的完整token信息，为string时仅仅返回token字符转
+ * @author 似水流年
+ */
+function get_access_token($style='json')
+{
+    $Wx = new wx\AccessToken('txl');
+    $access_token = $Wx->getAccessToken();
+    if ($style=='string')
+    {
+        $res = json_decode($access_token);
+        $access_token = $res->access_token;
+    }
+    return $access_token;
+}

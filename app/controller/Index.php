@@ -2,15 +2,15 @@
 namespace app\controller;
 
 use think\Controller;
-use think\Request;
-use wx\AccessToken;
+use wx\TxlApi;
 
 class Index extends Controller
 {
     public function index()
     {
-        $Wx = new AccessToken('txl');
-        dump($Wx->getAccessToken());
-        return $this->fetch();
+        $res = new TxlApi();
+        $data = $res->getDepartmentsById();
+        echo($data);
+        //return $this->fetch();
     }
 }
