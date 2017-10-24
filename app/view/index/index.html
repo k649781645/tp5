@@ -1,13 +1,126 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>layout 后台大布局 - Layui</title>
+<link rel="stylesheet" href="/static/layui/src/css/layui.css">
 </head>
-<body>
-    <h1>Hello word!</h1>
-    <a href="{:url('wx/getAccessToken')}">getAccessToken</a>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">layui 后台布局</div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item"><a href="">后台首页</a></li>
+            <li class="layui-nav-item"><a href="">通信录</a></li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">其它系统</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">邮件管理</a></dd>
+                    <dd><a href="">消息管理</a></dd>
+                    <dd><a href="">授权管理</a></dd>
+                </dl>
+            </li>
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    贤心
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">基本资料</a></dd>
+                    <dd><a href="">安全设置</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="">退了</a></li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a class="" href="javascript:;">所有商品</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="{:url('test')}">列表一</a></dd>
+                        <dd><a href="javascript:;">列表二</a></dd>
+                        <dd><a href="javascript:;">列表三</a></dd>
+                        <dd><a href="">超链接</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">解决方案</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">列表一</a></dd>
+                        <dd><a href="javascript:;">列表二</a></dd>
+                        <dd><a href="">超链接</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="">云市场</a></li>
+                <li class="layui-nav-item"><a href="">发布商品</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body">
+        <!-- 内容主体区域 -->
+        <div style="padding: 15px;">
+            <table class="layui-table" lay-data="{width:900, height:'400', url:'/index/getUserById.html', page:true, id:'test'}" lay-filter="test">
+                <thead>
+                  <tr>
+                    <th lay-data="{checkbox:true, fixed: true}"></th>
+                    <th lay-data="{field:'name', width:100, fixed: true, sort: true}">姓名</th>
+                    <th lay-data="{field:'department', width:150, sort: true}">部门</th>
+                    <th lay-data="{field:'mobile', width:180}">手机</th>
+                    <th lay-data="{field:'email', width:200}">邮箱</th>
+                    <!-- <th lay-data="{fixed: 'right', toolbar: '#barDemo', width:150, align:'center'}">操作</th> -->
+                  </tr>
+                </thead>
+              </table>
+        </div>
+        <div>
+            <ul id="tree"></ul>
+        </div>
+    </div>
+
+    <div class="layui-footer">
+        <!-- 底部固定区域 -->
+        © layui.com - 底部固定区域
+    </div>
+</div>
+<script src="/static/layui/src/layui.js"></script>
+<script>
+//JavaScript代码区域
+layui.use('element', function(){
+    var element = layui.element;
+
+});
+layui.use('table', function(){
+    var table = layui.table;
+});
+layui.use('tree', function(){
+    layui.tree({
+        elem: '#tree' //传入元素选择器
+        ,nodes: [{ //节点
+            name: '父节点1'
+            ,children: [{
+                name: '子节点11'
+            },{
+                name: '子节点12'
+            }]
+            },{
+            name: '父节点2（可以点左侧箭头，也可以双击标题）'
+            ,children: [{
+                name: '子节点21'
+                ,children: [{
+                name: '子节点211'
+                }]
+            }]
+        }]
+    });
+});
+</script>
 </body>
 </html>
