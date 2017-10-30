@@ -67,12 +67,12 @@ function http_post($url,$param,$post_file=false){
     curl_setopt($oCurl, CURLOPT_POST,true);
     curl_setopt($oCurl, CURLOPT_POSTFIELDS,$strPOST);
     curl_setopt($oCurl, CURLOPT_VERBOSE, 1);
-    curl_setopt($oCurl, CURLOPT_HEADER, 1);
+    //curl_setopt($oCurl, CURLOPT_HEADER, 1);
 
-    // $sContent = curl_exec($oCurl);
+    $sContent = curl_exec($oCurl);
     // $aStatus  = curl_getinfo($oCurl);
 
-    $sContent = execCURL($oCurl);
+    //$sContent = execCURL($oCurl);
     curl_close($oCurl);
 
     return $sContent;

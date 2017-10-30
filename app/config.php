@@ -10,8 +10,8 @@ return [
 
     // 企业微信配置
     'wx' => [
-        'CorpId'    => 'wxf8d1e01f1cbce6eb',
-        'TxlSecret' => '8h8PyMOawNoCKjU6FWzwa3sv96HtsAQho4q5fBKssuc',
+        'CorpId'    => 'ww76be1f123c5c4a8a',
+        'TxlSecret' => '5FjqFSjduVIBx0kYPLoKDuiiD3q__hKGTYqLKr8p7-c',
         'apps'       => [
             'AppDesc'        => 'Test',
             'AgentId'        => 1000004,
