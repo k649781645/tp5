@@ -137,22 +137,16 @@ function set_php_file($filename, $content) {
     fclose($fp);
 }
 
-//加载本地的应用配置文件（废弃）
-// function loadConfig(){
-//     return json_decode(get_php_file("../config.php"));
-// }
-
 //根据应用ID获取应用配置
-function getConfigByAgentId($id){
-    $configs = loadConfig();
-
-    foreach ($configs->AppsConfig as $key => $value) {
-        if($value->AgentId == $id){
+function getConfigByAgentId($agentId){
+    $configs = config('wx.apps');;
+    foreach ($configs as $key => $value) {
+        if($value['AgentId'] == $agentId){
             $config = $value;
             break;
         }
     }
-
+    $config = $config ? $config : array();
     return $config;
 }
 
@@ -160,7 +154,7 @@ function getConfigByAgentId($id){
  * 数组转换为对象（传入非数组原样返回）
  * @param [array] $arr 要转换为对象的数组
  * @return [object/array] 传入数组时返回对象，否则原样返回
- * @author 似水流年
+ * @author 649781645@qq.com
  */
 function array_to_object($arr){
     if(is_array($arr)){
@@ -176,18 +170,13 @@ function array_to_object($arr){
 
 /**
  * 获取access_token助手函数
- * @param [string] $style 参数值两种：1、json;2、string
- * @return 参数为json时返回json格式的完整token信息，为string时仅仅返回token字符转
- * @author 似水流年
+ * @param [string] $agentId 应用ID,获取通信录token留空
+ * @return 返回token字符
+ * @author 649781645@qq.com
  */
-function get_access_token($style='json')
+function get_access_token($agentId='')
 {
-    $Wx = new wx\AccessToken('txl');
-    $access_token = $Wx->getAccessToken();
-    if ($style=='string')
-    {
-        $res = json_decode($access_token);
-        $access_token = $res->access_token;
-    }
+    $wx = new \wx\AccessToken($agentId);
+    $access_token = $wx->getAccessToken();
     return $access_token;
 }

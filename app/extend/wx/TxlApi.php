@@ -8,7 +8,7 @@ class TxlApi
     private $access_token;
 
     public function __construct() {
-        $this->access_token = get_access_token('string');
+        $this->access_token = get_access_token();
     }
 
     /**
@@ -19,7 +19,7 @@ class TxlApi
     {
         if($id > 0)
         {
-            return http_get("https://qyapi.weixin.qq.com/cgi-bin/department/list?access_token=$this->access_token&id=$id");
+            return http_get("https://qyapi.weixin.qq.com/cgi-bin/department/list?access_token={$this->access_token}&id=$id");
         }else
         {
             return '{"errcode":-1,"errmsg":"departmentId is invalid"}';
@@ -35,7 +35,7 @@ class TxlApi
     {
         if($id > 0)
         {
-            return http_get("https://qyapi.weixin.qq.com/cgi-bin/user/list?access_token=$this->access_token&department_id=$id&fetch_child=$fetch_child");
+            return http_get("https://qyapi.weixin.qq.com/cgi-bin/user/list?access_token={$this->access_token}&department_id=$id&fetch_child=$fetch_child");
         }else
         {
             return '{"errcode":-1,"errmsg":"departmentId is invalid"}';
@@ -52,11 +52,20 @@ class TxlApi
         if($data["userid"]){
             if( count($data) > 2 )
             {
-                return http_post("https://qyapi.weixin.qq.com/cgi-bin/user/update?access_token=$this->access_token",$data);
+                return http_post("https://qyapi.weixin.qq.com/cgi-bin/user/update?access_token={$this->access_token}",$data);
             }
                 return '{"errcode":-2,"errmsg":"params is missing"}';
         }else{
             return '{"errcode":-2,"errmsg":"params is missing"}';
         }
+    }
+
+    /**
+     * 通过UserId获取用户详细信息
+     */
+    public function getUserInfoByUserId($userId)
+    {
+        $res = http_get("https://qyapi.weixin.qq.com/cgi-bin/user/get?access_token={$this->access_token}&userid=$userId");
+        return $res;
     }
 }

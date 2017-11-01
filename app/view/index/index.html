@@ -11,8 +11,9 @@
         <div class="layui-logo">layui 后台布局</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="">首页</a></li>
-            <li class="layui-nav-item"><a href="">通信录</a></li>
+            <li class="layui-nav-item"><a href="{:url('index')}">首页</a></li>
+            <li class="layui-nav-item"><a href="{:url('index/txl')}">通信录</a></li>
+            <li class="layui-nav-item"><a href="{:url('index/login')}">登录</a></li>
             <li class="layui-nav-item">
                 <a href="javascript:;">其它</a>
                 <dl class="layui-nav-child">
@@ -70,89 +71,5 @@
     </div>
 </div>
 <script src="/static/layui/src/layui.js"></script>
-<script type="text/javascript">
-//JavaScript代码区域
-layui.use('element', function(){
-    var element = layui.element;
-});
-layui.use('table', function(){
-    var table = layui.table;
-    var data = {$data};
-    table.render({
-        id: 'testReload',
-        elem: '#table',
-        data: {$data},
-        height: 'full',
-        size: '',//表格大小 sm 和lg 或者留空默认
-        cols: [[ //标题栏
-            {checkbox: true, LAY_CHECKED: true},
-            {field: 'name', title: '姓名', width: 120, templet: '#nameTpl'},
-            {field: 'position', title: '职务', width: 150},
-            {field: 'department', title: '部门', sort:true, width: 120},
-            {field: 'mobile', title: '手机', width: 130},
-            {field: 'email', title: '邮箱', width: 250},
-            {fixed: 'right', title: '操作', width:180, align:'center', toolbar: '#barDemo'}
-        ]],
-        limit: 18,
-        limits: [10,20,50,100],
-        page:true,
-    });
-    //监听工具条
-    table.on('tool(table)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
-    var data = obj.data; //获得当前行数据
-    var layEvent = obj.event; //获得 lay-event 对应的值
-    var tr = obj.tr; //获得当前行 tr 的DOM对象
-    var $ = layui.jquery;
-
-    if(layEvent === 'disenable'){ //禁用/启用
-        var url = '{:url("index/updateUser")}';
-        data.flag = 'enable';
-        $.post(url,data,function(res){
-            console.log(res);
-            if(res.errcode===48002){
-                layer.msg('Api接口无权限调用操作！', {icon: 2,anim: 6});
-            }else{
-                layer.msg('更行成功！');
-            }
-        });
-    } else if(layEvent === 'del'){ //删除
-        layer.confirm('真的删除行么', function(index){
-            obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
-            layer.close(index);
-            //向服务端发送删除指令
-        });
-    } else if(layEvent === 'edit'){ //编辑
-        //do something
-        console.log(data);
-        //同步更新缓存对应的值
-        obj.update({
-            username: '123',
-            title: 'xxx'
-        });
-    }
-    });
-});
-</script>
-<!--动态表格字段模板-->
-<script type="text/html" id="nameTpl">
-    <a href="#?{{d.userid}}" class="layui-table-link">{{d.name}}</a>
-</script>
-<script type="text/html" id="sexTpl">
-    {{#  if(d.sex === '女'){ }}
-        <span style="color: #F581B1;">{{ d.sex }}</span>
-    {{#  } else { }}
-        {{ d.sex }}
-    {{#  } }}
-</script>
-<!--动态表格工具条-->
-<script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-mini" lay-event="edit">编辑</a>
-    {{#  if(d.enable === 1){ }}
-    <a class="layui-btn layui-btn-mini" lay-event="disenable">禁用</a>
-    {{#  } else { }}
-    <a class="layui-btn layui-btn-mini" lay-event="disenable">启用</a>
-    {{#  } }}
-    <a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="del">删除</a>
-</script>
 </body>
 </html>
