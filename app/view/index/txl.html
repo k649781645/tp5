@@ -89,10 +89,10 @@ layui.use('table', function(){
             {checkbox: true, LAY_CHECKED: true},
             {field: 'name', title: '姓名', width: 120, templet: '#nameTpl'},
             {field: 'position', title: '职务', width: 150},
-            {field: 'department', title: '部门', sort:true, width: 120},
+            {field: 'department', title: '部门', sort:true},
             {field: 'mobile', title: '手机', width: 130},
-            {field: 'email', title: '邮箱', width: 250},
-            {fixed: 'right', title: '操作', width:180, align:'center', toolbar: '#barDemo'}
+            {field: 'email', title: '邮箱'},
+            {fixed: 'right', title: '操作', align:'center', toolbar: '#barDemo'}
         ]],
         limit: 18,
         limits: [10,20,50,100],
@@ -147,13 +147,13 @@ layui.use('table', function(){
 </script>
 <!--动态表格工具条-->
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-mini" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     {{#  if(d.enable === 1){ }}
-    <a class="layui-btn layui-btn-mini" lay-event="disenable">禁用</a>
+    <a class="layui-btn layui-btn-xs" lay-event="disenable">禁用</a>
     {{#  } else { }}
-    <a class="layui-btn layui-btn-mini" lay-event="disenable">启用</a>
+    <a class="layui-btn layui-btn-xs" lay-event="disenable">启用</a>
     {{#  } }}
-    <a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 </body>
 </html>
