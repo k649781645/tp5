@@ -49,7 +49,8 @@ class Index extends Controller
         if($data->errcode === 0)
         {
             $data = $data->userlist;
-        }else
+        }
+        else
         {
             $data = array();
         }
@@ -87,7 +88,8 @@ class Index extends Controller
         if($data->errcode === 0)
         {
             $data = $data->department;
-        }else
+        }
+        else
         {
             $data = array();
         }
@@ -106,7 +108,8 @@ class Index extends Controller
                 'count'=> 100,
                 'data' => $data->userlist
             );
-        }else
+        }
+        else
         {
             $data = array();
         }

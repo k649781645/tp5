@@ -7,7 +7,8 @@ class TxlApi
 {
     private $access_token;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->access_token = get_access_token();
     }
 
@@ -20,7 +21,8 @@ class TxlApi
         if($id > 0)
         {
             return http_get("https://qyapi.weixin.qq.com/cgi-bin/department/list?access_token={$this->access_token}&id=$id");
-        }else
+        }
+        else
         {
             return '{"errcode":-1,"errmsg":"departmentId is invalid"}';
         }
@@ -36,7 +38,8 @@ class TxlApi
         if($id > 0)
         {
             return http_get("https://qyapi.weixin.qq.com/cgi-bin/user/list?access_token={$this->access_token}&department_id=$id&fetch_child=$fetch_child");
-        }else
+        }
+        else
         {
             return '{"errcode":-1,"errmsg":"departmentId is invalid"}';
         }
@@ -49,13 +52,19 @@ class TxlApi
      */
     public function updateUser($data)
     {
-        if($data["userid"]){
-            if( count($data) > 2 )
+        if($data["userid"])
+        {
+            if( count($data) >= 2 )
             {
                 return http_post("https://qyapi.weixin.qq.com/cgi-bin/user/update?access_token={$this->access_token}",$data);
             }
+            else
+            {
                 return '{"errcode":-2,"errmsg":"params is missing"}';
-        }else{
+            }
+        }
+        else
+        {
             return '{"errcode":-2,"errmsg":"params is missing"}';
         }
     }
