@@ -13,6 +13,7 @@ class TxlApi
     }
 
     /**
+    * 获取部门列表
     * 根据部门ID来查询下属的所有子部门
     * @param  [Number] $id 部门ID (默认为1表示根部门)
     */
@@ -70,11 +71,23 @@ class TxlApi
     }
 
     /**
+     * 删除单个成员
+     * @param  [string] $userid 用户userid
+     * @return [Json]     {"errcode": 0,"errmsg": "deleted"}
+     */
+    public function deleteUser($userid)
+    {
+        $url = "https://qyapi.weixin.qq.com/cgi-bin/user/delete?access_token={$this->access_token}&userid={$userid}";
+        $res = http_get($url);
+        return $res;
+    }
+
+    /**
      * 通过UserId获取用户详细信息
      */
     public function getUserInfoByUserId($userId)
     {
-        $res = http_get("https://qyapi.weixin.qq.com/cgi-bin/user/get?access_token={$this->access_token}&userid=$userId");
+        $res = http_get("https://qyapi.weixin.qq.com/cgi-bin/user/get?access_token={$this->access_token}&userid={$userId}");
         return $res;
     }
 }

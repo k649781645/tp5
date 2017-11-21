@@ -12,6 +12,8 @@ class AccessToken
 {
     private $corpId = 'ww76be1f123c5c4a8a';
     private $secret = '5FjqFSjduVIBx0kYPLoKDuiiD3q__hKGTYqLKr8p7-c';//通信录凭证密钥
+    // private $corpId = 'wxf8d1e01f1cbce6eb';
+    // private $secret = '8h8PyMOawNoCKjU6FWzwa3sv96HtsAQho4q5fBKssuc';//通信录凭证密钥
     private $agentId;//应用ID
     private $appConfigs = [
         'AppDesc'        => 'Test',
